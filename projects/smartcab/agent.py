@@ -102,10 +102,11 @@ class LearningAgent(Agent):
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
         if not state in self.Q.keys():
-            self.Q[state]=dict()
-            Q_sub=self.Q[state]
-            for temp_action in self.valid_actions:
-                Q_sub[temp_action]=0
+            if self.learning:
+                self.Q[state]=dict()
+                Q_sub=self.Q[state]
+                for temp_action in self.valid_actions:
+                 Q_sub[temp_action]=0
         return
 
 
@@ -162,9 +163,9 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-
-        temp_Q_value = self.Q[state][action]
-        self.Q[state][action] = temp_Q_value*(1-self.alpha) + self.alpha*reward
+        if self.learning:
+            temp_Q_value = self.Q[state][action]
+            self.Q[state][action] = temp_Q_value*(1-self.alpha) + self.alpha*reward
 
 
         return
