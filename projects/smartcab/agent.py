@@ -47,7 +47,9 @@ class LearningAgent(Agent):
             self.alpha=0
         else:
             #self.epsilon=self.epsilon-0.05
-            self.epsilon=math.pow(self.alpha,self.trail)
+            #self.epsilon=math.pow(self.alpha,self.trail)
+            self.epsilon=math.pow(0.95, self.trail)
+            self.alpha=self.alpha-0.002
             self.trail+=1
 
         return None
@@ -220,14 +222,14 @@ def run():
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
     #sim = Simulator(env,update_delay=0.005,log_metrics=True,optimized=True)
-    sim = Simulator(env,update_delay=0.005,log_metrics=True,optimized=False)
+    sim = Simulator(env,update_delay=0.0001,log_metrics=True,optimized=True)
 
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(tolerance=0.001,n_test=50)
+    sim.run(tolerance=0.0000001,n_test=100)
     #sim.run(n_test=10)
 
 
